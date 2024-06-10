@@ -7,11 +7,26 @@ using System.Text;
 using System.Threading.Tasks;
 using DSharpPlus.Entities;
 using discordbot.other;
+using DSharpPlus.Interactivity.Extensions;
 
 namespace discordbot.commands
 {
     public class GeneralCommands : BaseCommandModule
     {
+
+        [Command("test")]
+            public async Task TestCommand(CommandContext ctx)
+        {
+            var interactivity = Program.Client.GetInteractivity();
+
+            var messageToRetrieve = await interactivity.WaitForMessageAsync(message => message.Content == "Hello");
+            if (messageToRetrieve.Result.Content == "Hello")
+            {
+                await ctx.Channel.SendMessageAsync($"{ctx.User.Username} said Hello");
+            }
+
+        }
+
         [Command("whoami")]
         public async Task IdCommand(CommandContext ctx)
         {

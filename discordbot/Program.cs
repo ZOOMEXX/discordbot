@@ -2,13 +2,16 @@
 using discordbot.config;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
+using DSharpPlus.Interactivity;
+using DSharpPlus.Interactivity.Extensions;
+using System;
 using System.Threading.Tasks;
 
 namespace discordbot
 {
     internal class Program
     {
-        private static DiscordClient Client { get; set; }
+        public static DiscordClient Client { get; set; }
         private static CommandsNextExtension Commands { get; set; }
         static async Task Main(string[] args)
         {
@@ -24,6 +27,11 @@ namespace discordbot
             };
 
             Client = new DiscordClient(discordConfig);
+
+            Client.UseInteractivity(new InteractivityConfiguration()
+            {
+                Timeout = TimeSpan.FromMinutes(2)
+            });
 
             Client.Ready += Client_Ready;
 
