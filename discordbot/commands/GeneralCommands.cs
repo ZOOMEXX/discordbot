@@ -27,6 +27,18 @@ namespace discordbot.commands
 
         }
 
+        [Command("test1")]
+        public async Task Test1Command(CommandContext ctx)
+        {
+            var interactivity = Program.Client.GetInteractivity();
+
+            var messageToReact = await interactivity.WaitForReactionAsync(message => message.Message.Id == 1249861786098729012);
+            if (messageToReact.Result.Message.Id == 1249861786098729012)
+            {
+                await ctx.Channel.SendMessageAsync($"{ctx.User.Username} reacted with the emoji {messageToReact.Result.Emoji.Name}");
+            }
+        }
+
         [Command("whoami")]
         public async Task IdCommand(CommandContext ctx)
         {
